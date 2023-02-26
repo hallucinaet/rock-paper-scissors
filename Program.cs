@@ -9,48 +9,91 @@ namespace rock_paper_scissors
             string[] shapes = new[] { "rock", "paper", "scissors" };
             string playerChoice;
             string computerChoice;
+            int playerScore = 0;
+            int computerScore = 0;
+            int drawCount = 0;
 
-            for (int i = 0; i < 5; i++)
+            Console.WriteLine("Welcome to ROCK PAPER SCISSORS!");
+
+            for (int round = 0; round < 5; round++)
             {
-                getComputerChoice();
-                getPlayerChoice();
-                checkWinner();
+                GetComputerChoice();
+                GetPlayerChoice();
+                CheckWinner();
+                UpdateScore();
             }
 
-            void getComputerChoice()
+            GameResult();
+
+            void GetComputerChoice()
             {
                 Random rnd = new();
                 computerChoice = shapes[rnd.Next(0, 3)];
-                Console.WriteLine(computerChoice);
             }
 
-            void getPlayerChoice()
+            void GetPlayerChoice()
             {
-                Console.Write("Enter Rock, Paper, or Scissors: ");
+                Console.Write("\nEnter Rock, Paper, or Scissors: ");
                 playerChoice = Console.ReadLine().ToLower();
             }
 
-            void checkWinner()
+            void CheckWinner()
             {
                 if (playerChoice == computerChoice)
                 {
-                    Console.WriteLine("RESULT: Draw");
+                    RoundDraw();
                 }
                 else if (playerChoice == "rock")
                 {
-                    if (computerChoice == "scissors") Console.WriteLine("RESULT: Player wins");
-                    if (computerChoice == "paper") Console.WriteLine("RESULT: Computer wins");
+                    if (computerChoice == "scissors") PlayerWinsRound();
+                    if (computerChoice == "paper") ComputerWinsRound();
                 }
                 else if (playerChoice == "paper")
                 {
-                    if (computerChoice == "rock") Console.WriteLine("RESULT: Player wins");
-                    if (computerChoice == "scissors") Console.WriteLine("RESULT: Computer wins");
+                    if (computerChoice == "rock") PlayerWinsRound();
+                    if (computerChoice == "scissors") ComputerWinsRound();
                 }
                 else if (playerChoice == "scissors")
                 {
-                    if (computerChoice == "paper") Console.WriteLine("RESULT: Player wins");
-                    if (computerChoice == "rock") Console.WriteLine("RESULT: Computer wins");
+                    if (computerChoice == "paper") PlayerWinsRound();
+
+                    if (computerChoice == "rock") ComputerWinsRound();
                 }
+                else
+                {
+                    Console.WriteLine("UNEXPECTED OUTCOME"); // Temporary check in place
+                }
+            }
+
+            void PlayerWinsRound()
+            {
+                Console.WriteLine("RESULT: You win this round");
+                playerScore++;
+            }
+
+            void ComputerWinsRound()
+            {
+                Console.WriteLine("RESULT: Computer wins this round");
+                computerScore++;
+            }
+
+            void RoundDraw()
+            {
+                Console.WriteLine("RESULT: Draw");
+                drawCount++;
+            }
+
+            void UpdateScore()
+            {
+                Console.WriteLine($"SCORE - You: {playerScore} - Computer: {computerScore} - Draws: {drawCount}");
+            }
+
+            void GameResult()
+            {
+                Console.WriteLine("\n");
+                if (playerScore == computerScore) Console.WriteLine("It's a tie!");
+                if (playerScore > computerScore) Console.WriteLine("You win!");
+                if (playerScore < computerScore) Console.WriteLine("You lose!");
             }
         }
     }
