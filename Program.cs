@@ -13,8 +13,10 @@ namespace rock_paper_scissors
             int computerScore = 0;
             int drawCount = 0;
 
-            Console.WriteLine("Welcome to ROCK PAPER SCISSORS!");
+            Console.WriteLine("Welcome to ROCK PAPER SCISSORS");
 
+            // Revise this section and how the game begins
+            // Option: choose at the beginnig how many rounds to play
             for (int round = 0; round < 5; round++)
             {
                 GetComputerChoice();
@@ -61,7 +63,7 @@ namespace rock_paper_scissors
                 }
                 else
                 {
-                    Console.WriteLine("UNEXPECTED OUTCOME"); // Temporary check in place
+                    Console.WriteLine("UNEXPECTED OUTCOME"); // Temporary warning, need a loop for incorrect entry
                 }
             }
 
